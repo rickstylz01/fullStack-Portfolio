@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema({
-  link: String,
+  url: String,
   image: String,
   title: String,
   role: String,
@@ -11,6 +11,6 @@ const ProjectSchema = new mongoose.Schema({
     to: String,
     text: String
   }
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('Project', ProjectSchema);
