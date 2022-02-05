@@ -1,8 +1,7 @@
 const express = require('express');
-const router = express.Router();
 const Index = require('../controllers/indexController');
 const Project = require('../models/projects');
-
+const router = express.Router();
 
 router.get('/', Index.landingPage);
 
@@ -10,21 +9,30 @@ router.get('/', Index.landingPage);
 // @description add/save project
 // @access Public
 router.post('/', async (req, res) => {
+  // console.log(`this is the req body: ${req.body}`);
+  const { project } = req.body;
   try {
-    const newProject = await Project.create({
-      url: req.body.url,
-      image: req.body.image,
-      title: req.body.title,
-      role: req.body.role,
-      brief: req.body.brief,
-      techStack: req.body.techStack,
-      projectLink: req.body.projectLink
+    const newProject = await new Project({
+      url: project.url,
+      image: project.image,
+      title: project.title,
+      role: project.role,
+      brief: project.brief,
+      techStack: project.techStack,
+      projectLink: project.projectLink
     });
-    return res.status(200).json(`Project ${newProject.title} has been saved.`);
+
+    if(project === "") {
+      res.redirect('/');
+    }
+
+    await newProject.save();
+    res.redirect('/');
+
+    return res.status(200).json(`Project: ${newProject.title}, has been saved.`);
   } catch (error) {
     console.log(error);
-    res.status(500).json({success: false, message: error.message});
   }
-})
+});
 
 module.exports = router;
