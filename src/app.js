@@ -1,17 +1,19 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
-const path = require('path');
-
-const app = express();
+const cors = require('cors');
 const PORT = process.env.PORT;
+const app = express();
 
+app.use(cors());
+// parse application/json
+app.use(express.json());
+// parse application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 //=======================================================================
 // DATABASE
 //=======================================================================
 const dbSetup = require('./config/dbSetup');
 dbSetup();
-
 //=======================================================================
 // ROUTES
 //=======================================================================
