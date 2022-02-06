@@ -10,7 +10,8 @@ router.get('/', Index.landingPage);
 // @access Public
 router.post('/', async (req, res) => {
   // console.log(`this is the req body: ${req.body}`);
-  const { project } = req.body;
+  const project = req.body;
+
   try {
     const newProject = await new Project({
       url: project.url,
@@ -27,9 +28,8 @@ router.post('/', async (req, res) => {
     }
 
     await newProject.save();
-    res.redirect('/');
 
-    return res.status(200).json(`Project: ${newProject.title}, has been saved.`);
+    return res.status(200).json('Project saved');
   } catch (error) {
     console.log(error);
   }
