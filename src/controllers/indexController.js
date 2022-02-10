@@ -57,6 +57,6 @@ exports.fetchSingleProject = async (req, res) => {
       .json(project);
   } catch (error) {
     console.log(error);
-    res.status(500).json({success: false, message: error.message});
+    res.status(500).json({success: false, message: 'The project you are looking for does not exist.'});
   }
 }
