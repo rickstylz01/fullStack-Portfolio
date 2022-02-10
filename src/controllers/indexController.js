@@ -2,7 +2,10 @@ const Project = require('../models/projects');
 
 exports.landingPage = async (req, res) => {
   try {
-    await Project.find();
+    let project = await Project.find();
+    return res
+      .status(200)
+      .json(project);
   } catch (error) {
     console.log(error);
     res.status(500).json({success: false, message: error.message});
@@ -42,5 +45,18 @@ exports.addProjects = async (req, res) => {
     return res.status(200).json('Project saved');
   } catch (error) {
     console.log(error);
+  }
+}
+
+exports.fetchSingleProject = async (req, res) => {
+  try {
+    // console.log(`yooo this the params: ${req.params.id}`);
+    let project = await Project.findById(req.params.id);
+    return res
+      .status(200)
+      .json(project);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({success: false, message: 'The project you are looking for does not exist.'});
   }
 }
