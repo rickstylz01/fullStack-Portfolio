@@ -1,17 +1,5 @@
 const Project = require('../models/projects');
 
-exports.landingPage = async (req, res) => {
-  try {
-    let project = await Project.find();
-    return res
-      .status(200)
-      .json(project);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({success: false, message: error.message});
-  }
-}
-
 exports.addProjects = async (req, res) => {
   try {
     const { title } = req.body;
@@ -48,9 +36,20 @@ exports.addProjects = async (req, res) => {
   }
 }
 
+exports.fetchAllProjects = async (req, res) => {
+  try {
+    let project = await Project.find();
+    return res
+      .status(200)
+      .json(project);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({success: false, message: error.message});
+  }
+}
+
 exports.fetchSingleProject = async (req, res) => {
   try {
-    // console.log(`yooo this the params: ${req.params.id}`);
     let project = await Project.findById(req.params.id);
     return res
       .status(200)
@@ -58,5 +57,18 @@ exports.fetchSingleProject = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({success: false, message: 'The project you are looking for does not exist.'});
+  }
+}
+
+exports.updateSingleProject = async (req, res) => {
+  try {
+    let updates = req.body;
+    let project = await Project.findByIdAndUpdate(req.params.id, updates);
+    return res
+      .status(200)
+      .json(`Project: ${project.title} was successfully updated` );
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({success: false, message: 'Unable to update at this time please try again.'});
   }
 }
