@@ -22,4 +22,9 @@ router.get('/project/:id', Index.fetchSingleProject);
 // @access Public
 router.put('/project/:id', Index.updateSingleProject);
 
+// @route DELETE /project/:id
+// @description find single project by id and delete
+// @access Public
+router.delete('/project/:id', Index.deleteSingleProject);
+
 module.exports = router;

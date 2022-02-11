@@ -72,3 +72,15 @@ exports.updateSingleProject = async (req, res) => {
     res.status(500).json({success: false, message: 'Unable to update at this time please try again.'});
   }
 }
+
+exports.deleteSingleProject = async (req, res) => {
+  try {
+    let project = await Project.findByIdAndDelete(req.params.id);
+    return res
+      .status(200)
+      .json(`${project.title} was deleted.`);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({success: false, message: 'Unable to delete the project at this time please try again.'});
+  }
+}
