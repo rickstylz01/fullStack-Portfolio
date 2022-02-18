@@ -12,7 +12,7 @@ router.post('/', Index.addProjects);
 // @access Public
 router.get('/', Index.fetchAllProjects);
 
-// @route POST /project/:id
+// @route GET /project/:id
 // @description find single project by id
 // @access Public
 router.get('/project/:id', Index.fetchSingleProject);
