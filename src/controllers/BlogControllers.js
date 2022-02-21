@@ -45,12 +45,12 @@ exports.fetchAllBlogs = async (req, res) => {
   }
 }
 
-exports.fetchSingleProject = async (req, res) => {
+exports.fetchSingleBlog = async (req, res) => {
   try {
-    let project = await Project.findById(req.params.id);
+    let blog = await Blog.findById(req.params.id);
     return res
       .status(200)
-      .json(project);
+      .json(blog);
   } catch (error) {
     console.log(error);
     res.status(500).json({success: false, message: 'The project you are looking for does not exist.'});
