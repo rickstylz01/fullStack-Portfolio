@@ -57,13 +57,14 @@ exports.fetchSingleBlog = async (req, res) => {
   }
 }
 
-exports.updateSingleProject = async (req, res) => {
+exports.updateSingleBlog = async (req, res) => {
   try {
     let updates = req.body;
-    let project = await Project.findByIdAndUpdate(req.params.id, updates);
+    let blog = await Blog.findByIdAndUpdate(req.params.id, updates);
+
     return res
       .status(200)
-      .json(`Project: ${project.title} was successfully updated` );
+      .json(`Project: ${blog.title} was successfully updated` );
   } catch (error) {
     console.log(error);
     res.status(500).json({success: false, message: 'Unable to update at this time please try again.'});
