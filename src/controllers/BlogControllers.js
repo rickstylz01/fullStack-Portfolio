@@ -71,12 +71,12 @@ exports.updateSingleBlog = async (req, res) => {
   }
 }
 
-exports.deleteSingleProject = async (req, res) => {
+exports.deleteSingleBlog = async (req, res) => {
   try {
-    let project = await Project.findByIdAndDelete(req.params.id);
+    let blog = await Blog.findByIdAndDelete(req.params.id);
     return res
       .status(200)
-      .json(`${project.title} was deleted.`);
+      .json(`${blog.title} was deleted.`);
   } catch (error) {
     console.log(error);
     res.status(500).json({success: false, message: 'Unable to delete the project at this time please try again.'});
