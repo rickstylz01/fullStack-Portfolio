@@ -3,25 +3,19 @@ const Blog = require('../models/Blog');
 exports.createBlog = async (req, res) => {
   try {
     const { title } = req.body;
-    const blog = req.body;
 
-    // Make sure this project doesn't already exist
-    const newBlog = await Blog.findOne({ title });
-    if (newBlog) {
+    // Make sure this blog doesn't already exist
+    const blog = await Blog.findOne({ title });
+    if (blog) {
       return res
         .status(401)
         .json({ message: "This project already exists."});
     }
 
-    // Create and save new project
-    await new Blog({
-      title: blog.title,
-      author: blog.author,
-      description: blog.description,
-      published_date: blog.published_date
-    });
+    // Create and save new blog
+    const newBlog = await new Blog({...req.body});
 
-    if (blog === "") {
+    if (newBlog === "") {
       res.redirect('/');
     }
 

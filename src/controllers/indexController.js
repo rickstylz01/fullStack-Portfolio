@@ -3,28 +3,19 @@ const Project = require('../models/Projects');
 exports.addProjects = async (req, res) => {
   try {
     const { title } = req.body;
-    const project = req.body;
 
     // Make sure this project doesn't already exist
-    const newProject = await Project.findOne({ title });
-      if (newProject) {
-        return res
-          .status(401)
-          .json({ message: "This project already exists."});
-      }
+    const project = await Project.findOne({ title });
+    if (project) {
+      return res
+        .status(401)
+        .json({ message: "This project already exists."});
+    }
 
-      // Create and save new project
-      await new Project({
-      url: project.url,
-      image: project.image,
-      title: project.title,
-      role: project.role,
-      brief: project.brief,
-      techStack: project.techStack,
-      projectLink: project.projectLink
-    });
+    // Create and save new project
+    const newProject = await new Project({...req.body});
 
-    if (project === "") {
+    if (newProject === "") {
       res.redirect('/');
     }
 
