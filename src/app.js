@@ -6,7 +6,7 @@ const app = express();
 
 app.use(cors({ origin: true, credential: true }));
 // parse application/json
-app.use(express.json({ extended: false }));
+app.use(express.json());
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 //=======================================================================
@@ -20,8 +20,8 @@ dbSetup();
 const homeRoute = require('./routes/indexRoutes');
 app.use(homeRoute);
 
-const blogs = require('./routes')
-app.use('/blogs', blogs);
+const blogs = require('./routes/BlogRoutes');
+app.use(blogs);
 //=======================================================================
 // SERVER
 //=======================================================================
