@@ -29,10 +29,11 @@ exports.createBlog = async (req, res) => {
 
 exports.fetchAllBlogs = async (req, res) => {
   try {
-    let blog = await Blog.find();
+    let blogs = await Blog.find();
+    console.log(res);
     return res
       .status(200)
-      .json(blog);
+      .json(blogs);
   } catch (error) {
     console.log(error);
     res.status(500).json({success: false, message: error.message});
