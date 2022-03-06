@@ -5,7 +5,7 @@ const router = express.Router();
 // @route POST /
 // @description add/save blogs
 // @access Public
-router.post('/blogs', Blog.createBlog);
+router.post('/blogs/new', Blog.createBlog);
 
 // @route GET /
 // @description get all blogs
