@@ -15,16 +15,16 @@ router.get('/blogs', Blog.fetchAllBlogs);
 // @route GET /project/:id
 // @description find single blog by id
 // @access Public
-router.get('/blog/:id', Blog.fetchSingleBlog);
+router.get('/blogs/:id', Blog.fetchSingleBlog);
 
 // @route PUT /blog/:id
 // @description find single blog by id
 // @access Public
-router.put('/blog/:id', Blog.updateSingleBlog);
+router.put('/blogs/:id/edit', Blog.updateSingleBlog);
 
 // @route DELETE /blog/:id
 // @description find single blog by id and delete
 // @access Public
-router.delete('/blog/:id', Blog.deleteSingleBlog);
+router.delete('/blogs/:id', Blog.deleteSingleBlog);
 
 module.exports = router;
