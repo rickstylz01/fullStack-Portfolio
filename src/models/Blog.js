@@ -21,6 +21,6 @@ const BlogSchema = new mongoose.Schema({
   imageUrl: {
     type: String
   }
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('Blog', BlogSchema);
