@@ -11,13 +11,12 @@ const BlogSchema = new mongoose.Schema({
   description: {
     type: String
   },
-  published_date: {
+  publishDate: {
     type: Date
   },
-  updated_date: {
-    type: Date,
-    default: Date.now
+  imageUrl: {
+    type: String
   }
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('Blog', BlogSchema);
