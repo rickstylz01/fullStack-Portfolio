@@ -14,10 +14,6 @@ const BlogSchema = new mongoose.Schema({
   publishDate: {
     type: Date
   },
-  updateDate: {
-    type: Date,
-    default: Date.now
-  },
   imageUrl: {
     type: String
   }

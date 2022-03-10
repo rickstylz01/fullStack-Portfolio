@@ -31,7 +31,6 @@ exports.fetchAllBlogs = async (req, res) => {
   try {
     let blogs = await Blog.find();
     console.log(res);
-    console.log('ajkjkjkjkkj');
     return res
       .status(200)
       .json(blogs);
