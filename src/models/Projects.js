@@ -1,15 +1,26 @@
 const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema({
-  url: String,
-  image: String,
-  title: String,
-  role: String,
-  brief: String,
-  techStack: [String],
+  imageUrl: {
+    type: String
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  role: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  techStack: {
+    type: [String]
+  },
   projectLink: {
-    to: String,
-    text: String
+    type: String
   }
 }, {timestamps: true});
 

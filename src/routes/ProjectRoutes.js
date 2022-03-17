@@ -1,30 +1,30 @@
 const express = require('express');
-const Index = require('../controllers/indexController');
+const Project = require('../controllers/ProjectController');
 const router = express.Router();
 
 // @route POST /
 // @description add/save project
 // @access Public
-router.post('/', Index.addProjects);
+router.post('/projects/new', Project.addProjects);
 
 // @route GET /
-// @description get landing page
+// @description fetch all projects
 // @access Public
-router.get('/', Index.fetchAllProjects);
+router.get('/projects', Project.fetchAllProjects);
 
 // @route GET /project/:id
 // @description find single project by id
 // @access Public
-router.get('/project/:id', Index.fetchSingleProject);
+router.get('/projects/:id', Project.fetchSingleProject);
 
 // @route PUT /project/:id
 // @description find single project by id
 // @access Public
-router.put('/project/:id', Index.updateSingleProject);
+router.put('/projects/:id/edit', Project.updateSingleProject);
 
 // @route DELETE /project/:id
 // @description find single project by id and delete
 // @access Public
-router.delete('/project/:id', Index.deleteSingleProject);
+router.delete('/projects/:id', Project.deleteSingleProject);
 
 module.exports = router;
