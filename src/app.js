@@ -17,7 +17,7 @@ dbSetup();
 //=======================================================================
 // ROUTES
 //=======================================================================
-const homeRoute = require('./routes/indexRoutes');
+const homeRoute = require('./routes/ProjectRoutes');
 app.use(homeRoute);
 
 const blogs = require('./routes/BlogRoutes');
