@@ -19,6 +19,7 @@ exports.login = (req, res) => {
             const payload = {
               id: dbUser._id,
               username: dbUser.username,
+              admin: dbUser.admin,
             }
 
             jwt.sign(
