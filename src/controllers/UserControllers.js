@@ -1,10 +1,9 @@
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const User = require('./models/User');
+const User = require('../models/User');
 
 exports.registerUser = async (req, res) => {
   try {
-    const {user} = req.body;
+    const user = req.body;
 
     const takenUsername = await User.findOne({username: user.username});
     const takenEmail = await User.findOne({email: user.email});
@@ -18,7 +17,10 @@ exports.registerUser = async (req, res) => {
     const dbUser = new User({
       username: user.username.toLowerCase(),
       email: user.email,
-      password: user.password
+      password: user.password,
+      admin: user.admin,
+      firstName: user.firstName,
+      lastName: user.lastName
     });
 
     dbUser.save();
