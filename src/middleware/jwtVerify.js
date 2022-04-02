@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-function verifyJWT(req, res, next) {
+module.exports = (req, res, next) => {
   const token = req.header["x-access-token"]?.split(' ')[1];
 
   if (token) {
@@ -19,6 +19,3 @@ function verifyJWT(req, res, next) {
     res.json({message: "Incorrect Token Given", isLoggedIn: false})
   }
 }
-
-// possibly not the correct way of doing this
-module.exports = verifyJWT;
