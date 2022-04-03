@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-  const token = req.header["x-access-token"]?.split(' ')[1];
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(' ')[1];
 
   if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, {expiresIn: 86400}, (err, decoded) => {
       if (err) return res.json({
         isLoggedIn: false,
         message: "Failed To Authenticate"
