@@ -8,7 +8,7 @@ exports.login = (req, res) => {
   User.findOne({username: userLoggingIn.username})
     .then(dbUser => {
       if (!dbUser) {
-        return res.json({
+        return res.status(402).json({
           message: "Invalid Username or Password."
         });
       }
@@ -27,15 +27,15 @@ exports.login = (req, res) => {
               process.env.JWT_SECRET,
               {expiresIn: 86400},
               (err, token) => {
-                if (err) return res.json({message: err})
-                return res.json({
+                if (err) return res.status(404).json({message: err})
+                return res.status(200).json({
                   message: "Success",
                   token: "Bearer " + token
                 });
               }
             )
           } else {
-            return res.json({
+            return res.status(401).json({
               message: "Invalid Username or Password"
             });
           }
