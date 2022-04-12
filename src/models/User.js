@@ -15,17 +15,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  admin: {
-    type: Boolean,
-  },
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  }
+  refreshToken: String
 }, {timestamps: true});
 
 module.exports = mongoose.model('User', UserSchema);

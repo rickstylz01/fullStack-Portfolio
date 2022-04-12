@@ -2,43 +2,27 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
   const userLoggingIn = req.body;
+  if (!userLoggingIn.username || !userLoggingIn.password) return res.status(400).json({ message: 'Username and password are required.'});
 
-  User.findOne({username: userLoggingIn.username})
-    .then(dbUser => {
-      if (!dbUser) {
-        return res.status(402).json({
-          message: "Invalid Username or Password."
-        });
-      }
+  const foundUser = await User.findOne({username: userLoggingIn.username});
+  if (!foundUser) return res.sendStatus(401);
 
-      bcrypt.compare(userLoggingIn.password, dbUser.password)
-        .then(isCorrect => {
-          if (isCorrect) {
-            const payload = {
-              id: dbUser._id,
-              username: dbUser.username,
-              admin: dbUser.admin,
-            }
-
-            jwt.sign(
-              payload,
-              process.env.JWT_SECRET,
-              {expiresIn: 86400},
-              (err, token) => {
-                if (err) return res.status(404).json({message: err})
-                return res.status(200).json({
-                  message: "Success",
-                  token: "Bearer " + token
-                });
-              }
-            )
-          } else {
-            return res.status(401).json({
-              message: "Invalid Username or Password"
-            });
-          }
-        })
-    })
+  const match = await bcrypt.compare(userLoggingIn.password, foundUser.password);
+  if (match) {
+    const accessToken = jwt.sign(
+      { "username": foundUser.username },
+      process.env.JWT_SECRET,
+      { expiresIn: '30s'}
+    );
+    const refreshToken = jwt.sign(
+      { "username": foundUser.username },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: '1d'}
+    );
+    res.json({ 'success': `User ${foundUser.username} is logged in!`});
+  } else {
+    res.sendStatus(401);
+  }
 }
