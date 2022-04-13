@@ -14,7 +14,7 @@ exports.registerUser = async (req, res) => {
     const dbUser = await User.create({
       username: user.username.toLowerCase(),
       email: user.email,
-      password: user.password
+      password: user.password,
     });
 
     console.log(dbUser);
