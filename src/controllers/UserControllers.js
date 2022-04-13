@@ -9,16 +9,16 @@ exports.registerUser = async (req, res) => {
   if (takenUsername) res.sendStatus(409);
 
   try {
-    user.password = await bcrypt.hash(user.password, 10);
+    const hashedPassword = await bcrypt.hash(user.password, 10);
 
     const dbUser = await User.create({
       username: user.username.toLowerCase(),
-      email: user.email,
-      password: user.password,
+      password: hashedPassword,
     });
 
     console.log(dbUser);
-    res.json({message: "Success"});
+
+    res.json({'success': `New user ${user.username} created!`});
   } catch (error) {
     res.status(500).json({success: false, message: error.message});
   }

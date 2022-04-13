@@ -1,6 +1,7 @@
 const express = require('express');
 const Blog = require("../controllers/BlogControllers");
 const router = express.Router();
+const verifyJWT = require('../middleware/jwtVerify');
 
 // @route POST /
 // @description add/save blogs
@@ -10,7 +11,7 @@ router.post('/blogs/new', Blog.createBlog);
 // @route GET /
 // @description get all blogs
 // @access Public
-router.get('/blogs', Blog.fetchAllBlogs);
+router.get('/blogs', verifyJWT, Blog.fetchAllBlogs);
 
 // @route GET /project/:id
 // @description find single blog by id

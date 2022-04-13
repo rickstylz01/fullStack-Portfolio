@@ -12,7 +12,9 @@ exports.login = async (req, res) => {
   const match = await bcrypt.compare(userLoggingIn.password, foundUser.password);
   if (match) {
     const accessToken = jwt.sign(
-      { "username": foundUser.username },
+      {
+        "UserInfo": {"username": foundUser.username}
+      },
       process.env.JWT_SECRET,
       { expiresIn: '30s'}
     );
@@ -27,12 +29,12 @@ exports.login = async (req, res) => {
     const result = await foundUser.save();
     console.log(result);
 
-    res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 }); // secure: true,
+    res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 }); // secure: true,
     res.json({ accessToken });
   } else {
     res.sendStatus(401);
   }
-}
+};
 
 exports.logout = async (req, res) => {
   const cookies = req.cookies;
@@ -50,6 +52,7 @@ exports.logout = async (req, res) => {
   foundUser.refreshToken = '';
   const result = await foundUser.save();
   console.log(result);
+
   res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true});
   return res.sendStatus(204);
-}
+};
