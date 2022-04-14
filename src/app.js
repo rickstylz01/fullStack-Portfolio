@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT;
 const clientURL = process.env.CLIENT_SIDE_URL;
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const dbSetup = require('./config/dbSetup');
 const homeRoute = require('./routes/ProjectRoutes');
 const blogRoutes = require('./routes/BlogRoutes');
@@ -18,6 +19,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors());
+// middleware for cookies
+app.use(cookieParser());
 // parse application/json
 app.use(express.json());
 // parse application/x-www-form-urlencoded

@@ -16,12 +16,12 @@ exports.login = async (req, res) => {
         "UserInfo": {"username": foundUser.username}
       },
       process.env.JWT_SECRET,
-      { expiresIn: '30s'}
+      { expiresIn: '24h'}
     );
     const refreshToken = jwt.sign(
       { "username": foundUser.username },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: '1d'}
+      { expiresIn: '7d'}
     );
 
     // Saving refreshToken with current user
