@@ -12,9 +12,7 @@ exports.login = async (req, res) => {
   const match = await bcrypt.compare(userLoggingIn.password, foundUser.password);
   if (match) {
     const accessToken = jwt.sign(
-      {
-        "UserInfo": {"username": foundUser.username}
-      },
+      {"username": foundUser.username},
       process.env.JWT_SECRET,
       { expiresIn: '24h'}
     );

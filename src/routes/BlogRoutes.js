@@ -1,7 +1,7 @@
 const express = require('express');
 const Blog = require("../controllers/BlogControllers");
 const router = express.Router();
-const verifyJWT = require('../middleware/jwtVerify');
+const verifyJWT = require('../middleware/verifyJWT');
 
 // @route POST /
 // @description add/save blogs
