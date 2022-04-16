@@ -1,11 +1,13 @@
 const express = require('express');
 const Project = require('../controllers/ProjectControllers');
 const router = express.Router();
+const verifyJWT = require('../middleware/verifyJWT');
+
 
 // @route POST /
 // @description add/save project
 // @access Public
-router.post('/projects/new', Project.addProjects);
+router.post('/projects/new', verifyJWT, Project.addProjects);
 
 // @route GET /
 // @description fetch all projects
@@ -20,11 +22,11 @@ router.get('/projects/:id', Project.fetchSingleProject);
 // @route PUT /project/:id
 // @description find single project by id
 // @access Public
-router.put('/projects/:id/edit', Project.updateSingleProject);
+router.put('/projects/:id/edit', verifyJWT, Project.updateSingleProject);
 
 // @route DELETE /project/:id
 // @description find single project by id and delete
 // @access Public
-router.delete('/projects/:id', Project.deleteSingleProject);
+router.delete('/projects/:id', verifyJWT, Project.deleteSingleProject);
 
 module.exports = router;
