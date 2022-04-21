@@ -14,12 +14,12 @@ exports.login = async (req, res) => {
     const accessToken = jwt.sign(
       {username: foundUser.username},
       process.env.JWT_SECRET,
-      { expiresIn: '24h'}
+      { expiresIn: '5m'}
     );
     const refreshToken = jwt.sign(
       { username: foundUser.username },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: '7d'}
+      { expiresIn: '1h'}
     );
 
     // Saving refreshToken with current user
@@ -35,7 +35,10 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
+  // TODO: On client, also delete the access token
+
   const cookies = req.cookies;
+  console.log(cookies);
   if (!cookies?.jwt) return res.sendStatus(204);
   const refreshToken = cookies.jwt;
 
@@ -45,12 +48,12 @@ exports.logout = async (req, res) => {
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true});
     return res.sendStatus(204);
   }
-
+  console.log(foundUser);
   // Delete refreshToken in db
   foundUser.refreshToken = '';
   const result = await foundUser.save();
   console.log(result);
 
-  res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true});
+  res.clearCookie('jwt', { httpOnly: true }); //sameSite: 'None', secure: true
   return res.sendStatus(204);
 };

@@ -6,7 +6,7 @@ const verifyJWT = require('../middleware/verifyJWT');
 // @route POST /
 // @description add/save blogs
 // @access Public
-router.post('/blogs/new', verifyJWT, Blog.createBlog);
+router.post('/blogs/new', Blog.createBlog);
 
 // @route GET /
 // @description get all blogs
@@ -21,11 +21,11 @@ router.get('/blogs/:id', Blog.fetchSingleBlog);
 // @route PUT /blog/:id
 // @description find single blog by id
 // @access Public
-router.put('/blogs/:id/edit', verifyJWT, Blog.updateSingleBlog);
+router.put('/blogs/:id/edit', Blog.updateSingleBlog);
 
 // @route DELETE /blog/:id
 // @description find single blog by id and delete
 // @access Public
-router.delete('/blogs/:id', verifyJWT, Blog.deleteSingleBlog);
+router.delete('/blogs/:id', Blog.deleteSingleBlog);
 
 module.exports = router;
