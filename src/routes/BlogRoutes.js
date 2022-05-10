@@ -6,7 +6,7 @@ const verifyJWT = require('../middleware/verifyJWT');
 // @route POST /
 // @description add/save blogs
 // @access Public
-router.post('/blogs/new', Blog.createBlog);
+router.post('/blogs', Blog.createBlog);
 
 // @route GET /
 // @description get all blogs

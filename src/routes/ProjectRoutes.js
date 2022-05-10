@@ -7,7 +7,7 @@ const verifyJWT = require('../middleware/verifyJWT');
 // @route POST /
 // @description add/save project
 // @access Public
-router.post('/projects/new', Project.addProjects);
+router.post('/projects', Project.addProjects);
 
 // @route GET /
 // @description fetch all projects
