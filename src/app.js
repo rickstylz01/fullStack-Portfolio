@@ -1,10 +1,26 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
-const PORT = process.env.PORT;
 const app = express();
+const PORT = process.env.PORT;
+const clientURL = process.env.CLIENT_SIDE_URL;
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const dbSetup = require('./config/dbSetup');
+const homeRoute = require('./routes/ProjectRoutes');
+const blogRoutes = require('./routes/BlogRoutes');
+const userRoutes = require('./routes/UserRoutes');
+const authRoutes = require('./routes/AuthRoutes');
 
-app.use(cors({ origin: true, credential: true }));
+const corsOptions = {
+  origin: `${clientURL}`,
+  credentials: true,
+  optionsSuccessStatus:200
+}
+
+app.use(cors(corsOptions));
+app.options('*', cors());
+// middleware for cookies
+app.use(cookieParser());
 // parse application/json
 app.use(express.json());
 // parse application/x-www-form-urlencoded
@@ -12,16 +28,14 @@ app.use(express.urlencoded({ extended: true }));
 //=======================================================================
 // DATABASE
 //=======================================================================
-const dbSetup = require('./config/dbSetup');
 dbSetup();
 //=======================================================================
 // ROUTES
 //=======================================================================
-const homeRoute = require('./routes/ProjectRoutes');
 app.use(homeRoute);
-
-const blogs = require('./routes/BlogRoutes');
-app.use(blogs);
+app.use(blogRoutes);
+app.use(userRoutes);
+app.use(authRoutes);
 //=======================================================================
 // SERVER
 //=======================================================================

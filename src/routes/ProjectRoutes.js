@@ -1,11 +1,13 @@
 const express = require('express');
-const Project = require('../controllers/ProjectController');
+const Project = require('../controllers/ProjectControllers');
 const router = express.Router();
+const verifyJWT = require('../middleware/verifyJWT');
+
 
 // @route POST /
 // @description add/save project
 // @access Public
-router.post('/projects/new', Project.addProjects);
+router.post('/projects', Project.addProjects);
 
 // @route GET /
 // @description fetch all projects
