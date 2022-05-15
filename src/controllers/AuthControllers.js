@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
     const result = await foundUser.save();
     console.log(result);
 
-    res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 }); // secure: true,
+    res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 }); // secure: true, place after sameSite value
     res.json({ accessToken });
   } else {
     res.sendStatus(401);
@@ -35,8 +35,6 @@ exports.login = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  // TODO: On client, also delete the access token
-
   const cookies = req.cookies;
   console.log(cookies);
   if (!cookies?.jwt) return res.sendStatus(204);
