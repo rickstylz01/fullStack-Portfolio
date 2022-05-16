@@ -21,6 +21,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.8"
   },
+  "resolutions": {
+    "minimist": "1.2.6"
+  },
   "devDependencies": {
     "nodemon": "^2.0.15"
   }
