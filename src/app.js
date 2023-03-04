@@ -19,7 +19,7 @@ const corsOptions = {
 
 // set the Access-Control-Allow-Origin header
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://monumental-stardust-653361.netlify.app/');
+  res.setHeader('Access-Control-Allow-Origin', `${clientURL}`);
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
